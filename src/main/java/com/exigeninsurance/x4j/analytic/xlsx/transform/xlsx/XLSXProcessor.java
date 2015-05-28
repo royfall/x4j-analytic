@@ -192,11 +192,13 @@ final class XLSXProcessor extends WorkbookProcessor {
 				}
 			}
 
-			String casheEntryName = getEntryName(cache.getPackagePart());
-			savedParts.add(casheEntryName);
-			out.putNextEntry(new ZipEntry(casheEntryName));
-			cache.writeTo(out);
-			out.closeEntry();
+			if(!savedParts.contains(getEntryName(cache.getPackagePart()))) {
+				String casheEntryName = getEntryName(cache.getPackagePart());
+				savedParts.add(casheEntryName);
+				out.putNextEntry(new ZipEntry(casheEntryName));
+				cache.writeTo(out);
+				out.closeEntry();
+			}
 		}
 	}
 
